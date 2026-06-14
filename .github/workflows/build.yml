@@ -29,6 +29,10 @@ jobs:
 
       - name: Apply Patches
         run: ./gradlew applyAllPatches --stacktrace
+      - name: Inject DMS Core config
+        run: |
+          FILE="purpur-server/src/minecraft/java/net/minecraft/server/dedicated/DedicatedServer.java"
+          sed -i '284a\        // DMS Core start - story-core.yml\n        try {\n            org.purpurmc.purpur.dmscore.DMSCoreConfig.init(new java.io.File("story-core.yml"));\n        } catch (Exception e) {\n            DedicatedServer.LOGGER.error("Unable to load DMS Core configuration", e);\n            return false;\n        }\n        // DMS Core end - story-core.yml' "$FILE"
 
       - name: Build
         run: ./gradlew build --stacktrace
