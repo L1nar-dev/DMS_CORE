@@ -29,8 +29,6 @@ jobs:
 
       - name: Apply Patches
         run: ./gradlew applyAllPatches --stacktrace
-      - name: Find line
-        run: grep -n "registerCommands" purpur-server/src/minecraft/java/net/minecraft/server/dedicated/DedicatedServer.java
 
       - name: Build
         run: ./gradlew build --stacktrace
